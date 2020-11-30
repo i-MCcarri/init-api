@@ -3,7 +3,7 @@ BEGIN;
 TRUNCATE
     user_information,
     init_posts,
-    following
+    init_following
     RESTART IDENTITY CASCADE;
 
 INSERT INTO user_information (fullname, username, user_password, email, about_user, user_stack)
@@ -27,7 +27,7 @@ VALUES
     ('Time Traveller Trunks', 'Buster Katana', 'Blueprint for 3D printing my old katana','https://buster-katana.vercel.app/', 'https://github.com/timetravellertrunks/katana', '/hexadeci', '/hexadeci', 'Python', 4),
     ('Time Traveller Trunks', 'Pro Port', 'Not really a big deal... just my killer portfolio', 'https://ttt-portfolio.vercel.app/', 'https://github.com/timetravellertrunks/portfolio', '/hexadeci', '/hexadeci', 'HTML, Javascript, CSS', 4);
 
-INSERT INTO following (following_id, users_id, unread)
+INSERT INTO init_following (following_id, users_id, unread)
 VALUES
     (2, 1, true),
     (3, 1, false),
