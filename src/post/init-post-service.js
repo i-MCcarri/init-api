@@ -1,7 +1,7 @@
 const InitPostService = {
-    // getAllPosts(knex) {
-    //     return knex.select('*').from('init_posts')
-    // },
+    getAllPosts(knex) {
+        return knex.select('*').from('init_posts')
+    },
 
     getUserPosts(db, id) {
       return db
