@@ -24,16 +24,13 @@ const CommentService = {
                             user_id: c.user_id,
                             date_created: c.date_created
                         }
-
                     }
-
                     catch (error) {
                         return console.log(error)
                     }
                 }))
 
             return fullComments;
-
         }
         catch (error) {
             return console.log(error)
@@ -45,6 +42,22 @@ const CommentService = {
             .insert({ post_id, user_id, text })
             .into('init_comments')
             .catch(err => console.log(err))
+    },
+    async makeCommentNotification(db, user_id) {
+        const posts = await db
+            .select('id')
+            .from('init_posts')
+            .where()
+        //get posts where user_id === id
+        //
+        //get users's id from post_id
+        //save line in notifications table for that user
+        //including comment text
+        //user name of commenter
+    },
+    async readComments(db, user_id) {
+        // const posts = await db
+        // .select('','')
     }
 
 
