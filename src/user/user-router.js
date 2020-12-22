@@ -29,11 +29,11 @@ async function registerUser(req, res, next) {
             username, 
             user_password, 
             email, 
-            about_user,
-            user_stack
+            // about_user,
+            // user_stack
         } = req.body
 
-        for (const field of ['fullname', 'username', 'user_password', 'email', 'about_user', 'user_stack'])
+        for (const field of ['fullname', 'username', 'user_password', 'email'])
             if (!req.body[field])
                 return res.status(400).json({
                     error: `Missing '${field}' in request body`
@@ -77,8 +77,8 @@ async function registerUser(req, res, next) {
             username,
             user_password: hashedPassword,
             email,
-            about_user,
-            user_stack,
+            // about_user,
+            // user_stack,
             date_created: 'now()',
         }
 
@@ -132,7 +132,7 @@ async function getUserInfoRoute(req, res, next) {
         const FBU = await FollowService.countFollowedbyUser(req.app.get('db'), req.params.user_id)
         const UF = await FollowService.countFollowingUser(req.app.get('db'), req.params.user_id)
         const [userInfo] = await UserService.getUserInfo(req.app.get('db'), req.params.user_id)
-        console.log(NoPost, FBU, UF)
+        
         return res
             .status(200)
             .json({

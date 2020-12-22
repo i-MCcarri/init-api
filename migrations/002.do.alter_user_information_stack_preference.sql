@@ -1,4 +1,5 @@
 CREATE TYPE STACK_PREFERENCE AS ENUM (
+    '',
     'Backend',
     'Frontend',
     'Full Stack'
@@ -6,4 +7,4 @@ CREATE TYPE STACK_PREFERENCE AS ENUM (
 
 ALTER TABLE user_information
     ADD COLUMN
-        user_stack STACK_PREFERENCE NOT NULL
+        user_stack STACK_PREFERENCE

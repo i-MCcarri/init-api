@@ -1,26 +1,27 @@
-# [Init](https://init-blush.vercel.app/) API
+# [Init](https://init-blush.vercel.app/)
 
-`Init` is a social media site for developers to connect over their work. Users can upload posts with images that are stored in our database. These posts appear in the feed of users that are following you and can also be viewed on your portfolio page. You can interact with other users by commenting on their posts or by following their future posts.
+`Init` is a social media site for developers to connect over their work. Users can upload posts with demo images that are stored in our database. These posts appear in the feed of users that are following you and can also be viewed on your portfolio page. You can interact with other users by commenting on their posts or by following their future posts.
 
-This is a repository for the `Init API`.
+This is a repository for the `Init client`.
 
 View the live version [here](https://init-blush.vercel.app/)
 
-View the repository for the client [here](https://github.com/trevorjalt/init-client).
+View the client repository [here](https://github.com/i-MCcarri/init-client)
+
+View the repository for the server [here](https://github.com/i-MCcarri/init-api).
+
+## Demo Credentials
 
 To test `Init`, log in with these credentials:
-username: `Time Traveller Trunks`
+username: `test1`
 password: `ssRAGE2!`
-
-`Init` was created by [Adyceum Magna Ccarri](https://github.com/i-MCcarri), [Rachel Reilly](https://github.com/Rachanastasia), [Steven Henderson](https://github.com/Hendoe), and [Trevor J Alt](https://github.com/trevorjalt).
 
 ## Tech Stack
 
-- Node.js with Express
-- PostgreSQL with Knex.js
-- Mocha, Chai, SuperTest
-- JWT Authentication
-- deployed with Heroku
+- React
+- CSS3
+- Jest
+- deployed with Vercel
 
 ## Features
 
@@ -40,9 +41,9 @@ password: `ssRAGE2!`
 
 ![](Screenshots/comments.jpg)
 
-### Follow and unfollow users
+### Follow and Unfollow users
 
-![](Screenshots/following3.jpg)
+![](/Screenshots/following3.jpg)
 
 ![](Screenshots/following1.jpg)
 
@@ -50,62 +51,365 @@ password: `ssRAGE2!`
 
 ![](Screenshots/activity.jpg)
 
-## API Endpoints
+## API Overview
 
-### /api/auth
+/api
+.
+├── /auth', authRouter
+|   └── GET
+|       ├── /:username
+|   └── POST
+|       ├── /login
+|   └── PUT
+|       └── /login
+├── /avatar', avatarRouter
+|   └── POST
+|       ├── /upload
+|   └── PATCH
+|       ├── /upload/:avatar_id
+|   └── GET
+|       └── /download
+├── /user', userRouter
+|   └── POST
+|       ├── /
+|   └── GET
+|       ├── /:user_id
+|       └── /user/:user_id
+├── /follow', followRouter
+|   └── GET
+|       ├── /
+|   └── POST
+|       ├── /
+|   └── DELETE
+|       └── /
+├── /post', postRouter
+|   └── POST
+|       ├── /upload
+|   └── GET
+|       ├── /download
+|       ├── /feed
+|       └── /:post_id
+├── /comment', commentRouter
+|   └── GET
+|       ├── /:post_id
+|   └── POST
+|       └── /:post_id
+├── /activity', unreadActivitiesRouter
+|   └── GET
+|       └── /
 
-### /api/avatar
+## GET /api/auth/:username
+// req.body
+{ 
+    authToken: String,
+    user: []
+}
 
-- requires auth token
+//res.body
+{
+    user: []
+}
 
-### /api/user
+## POST /api/auth/login
+// req.body
+{ 
+    username: String, 
+    user_password: String
+}
 
-#### POST /api/user
+//res.body
+{
+    authToken: String
+}
 
-#### GET /api/user
+## PUT /api/auth/login
+// req.body
+{ 
+    username: String, 
+    user_id: Integer,
+    fullname: String,
+    email: String,
+    about_user: String,
+    user_stack: String
+}
 
-Not accessable through API
+//res.body
+{
+    authToken: String
+}
 
-#### GET /api/user/user/:user_id
+## POST /api/avatar/upload
+// req.body
+{ 
+    authToken: String,
+    storage: {},
+    upload: {},
+    uploadData: {},
+    imgData: String,
+    user_id: String
+}
 
-### /api/follow
+// req.params
+{
+    path: String|Number,
+    options: String
+}
 
-- requires auth token
+//res.body
+{
+    status: 201
+}
 
-#### GET /api/follow
+## PATCH /api/avatar/upload/:avatar_id
+// req.body
+{ 
+    updateData: {},
+    imgData: String,
+    user_id: String
+}
 
-Get all users that are following the logged in user and all of the users which the logged in user is following.
+// req.params
+{
+    path: String|Number,
+    options: String,
+    avatar_id: String
+}
 
-- requires auth token
+//res.body
+{
+    status: 204
+}
 
-#### POST /api/follow
+## GET /api/avatar/download
+// req.body
+{ 
+    user_id: String
+}
 
-Adds follower to current user's followers
+// req.params
+{
+    path: Sting|Number,
+    options: String,
+    avatar_id: String
+}
 
-- requires auth token
+//res.body
+{
+    user_avatar: {}
+}
 
-#### DELETE /api/follow
+## POST /api/user/
+// req.body
+{
+  fullname: String,
+  username: String,
+  user_password: String,
+  email: String,
+  newUser: {}
+}
 
-Removes follower from current user's followers
+// res.body
+{
+  user_information: {}
+}
 
-- requires auth token
+## GET /api/user/:user_id
+// req.params
+{
+  id: user_id
+}
 
-### /api/post
+//req.body
+{
+  authToken: String,
+}
 
-- requires auth token
+// res.body
+{
+  user: Integer
+}
 
-### /api/comment
+## GET /api/user/user/:user_id
+//req.params
+{
+  id: user_id
+}
 
-- requires auth token
+//req.body
+{
+  authToken: String,
+}
 
-#### GET /api/comment/:post_id
+//res.body
+{
+  user_info: {},
+  NoPost: Integer,
+  FBU: Integer,
+  UF: Integer
+}
 
-Get all comments for a specific post by id.
+## GET /api/follow/
+//req.body
+{
+  authToken: String,
+  user.id: Integer
+}
 
-- requires auth token
+//res.body
+{
+  Status: 200,
+  followedByUser: {},
+  followingUser: {}
+}
 
-#### POST /api/comment/:post_id
+## POST /api/follow/
+//req.body
+{
+  authToken: String,
+  following_id: Integer,
+  user.id: Integer
+}
 
-Add a comment to the post with the specific id. This returns an array of all comments for the post.
+//res.body
+{
+  Status: 200,
+  following: {}
+}
 
-- requires auth token
+## DELETE /api/follow/
+//req.body
+{
+  authToken: String,
+  following_id: Integer,
+  user.id: Integer
+}
+
+//res.body
+{
+  Status: 200,
+  following: {}
+}
+
+## POST /api/post/upload
+//req.body
+{
+  authToken: String,
+  uploadData: {},
+  imgData: {},
+  user.id: Integer,
+}
+
+//res.body
+{
+  Status: 201,
+}
+
+## GET /api/post/download
+//req.body
+{
+  authToken: String,
+  query: {},
+  user.id: Integer
+}
+
+//res.body
+{
+  results: {}
+}
+
+## GET /api/post/feed
+//req.body
+{
+  authToken: String,
+  query: {},
+  user.id: Integer
+}
+
+//res.body
+{
+  results: {}
+}
+
+## GET /api/post/:post_id
+//req.params
+{
+  post_id: String
+}
+
+//req.body
+{
+  authToken: String,
+}
+
+//res.body
+{
+  post: {},
+  user: {}
+}
+
+## GET /api/comment/:post_id
+//req.params
+{
+  post_id: String
+}
+
+//req.body
+{
+  authToken: String,
+}
+
+//res.body
+{
+  status: 200,
+  comments: {}
+}
+
+## POST /api/comment/:post_id
+//req.params
+{
+  post_id: String
+}
+
+//req.body
+{
+  authToken: String,
+  user.id: Integer
+}
+
+//res.body
+{
+  status: 200,
+  comments: {}
+}
+
+## GET /api/activity/ 
+//req.body
+{
+  authToken: String,
+  user.id: Integer
+}
+
+//res.body
+{
+  status: 200,
+  followedByUser: {},
+  unreadFollowingUser: {}
+  unreadCommentsForUser: {}
+}
+
+## Authors
+
+<ul>`Init` was created by:
+<li>Adyceum Magna Ccarri - Full Stack - [i-MCarri]()</li>
+<li>Rachel Reilly - Full Stack - [Rachanastasia](https://github.com/Rachanastasia)</li>
+<li>Steven Henderson - Full Stack - [Hendoe](https://github.com/Hendoe)</li>
+<li>Trevor J Alt - Full Stack - [trevorjalt](https://github.com/trevorjalt)</li>
+</ul>
+
+## Contributors
+
+Alex Cumbo
+
+## Acknowledgements
+
+Capi Etheriel, Gwynn Dandridge-Perry, Sarkis Melkonyan, and more.

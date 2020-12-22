@@ -21,7 +21,7 @@ unreadActivitiesRouter
 
             const unreadCommentsForUser = await unreadActivitiesService.getAllUnreadCommentsForUser(
                 req.app.get('db'), req.user.id)
-                
+            console.log(followedByUser, 'New Follower Notification: ', unreadFollowingUser, 'New Comment Notification: ', unreadCommentsForUser)
             return await res
                 .status(200)
                 .json({ 

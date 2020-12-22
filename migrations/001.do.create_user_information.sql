@@ -4,6 +4,6 @@ CREATE TABLE user_information (
     username TEXT NOT NULL UNIQUE,
     user_password TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    about_user TEXT NOT NULL,
+    about_user TEXT,
     date_created TIMESTAMPTZ DEFAULT now() NOT NULL
 );
