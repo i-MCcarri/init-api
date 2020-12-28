@@ -24,7 +24,7 @@ describe('Activity Endpoints', function () {
 
     afterEach('cleanup', () => helpers.cleanTables(db))
 
-    describe(`GET /api/activity`, () => {
+    describe(`GET /api/activity`, function () {
 
         beforeEach('insert users', () =>
             helpers.seedUsers(
@@ -54,15 +54,16 @@ describe('Activity Endpoints', function () {
             )
         })
 
-        describe('Given that a user has no activity, no followers and no comments on their posts', function () {
+        describe('Given that a user has no activity, no followers and no comments on their posts', () => {
             it(`Responds with 200 and an object with three keys, followedByUser, unreadFollowingUser, and unreadCommentsForUser with empty arrays for values`, async () => {
                 let res = await supertest(app)
-                    .get(`/api/activity`)
+                    .get(`/api/activity/`)
+                    .set('Authorization', helpers.makeAuthHeader(testUser))
                 expect(res.status).to.equal(200);
                 expect(res.body).to.be.an('object')
-                expect(res.body).to.include.all.keys('followedByUser', 'unreadFollingUser', 'unreadCommentsForUser')
+                expect(res.body).to.include.all.keys('followedByUser', 'unreadFollowingUser', 'unreadCommentsForUser')
                 expect(res.body.followedByUser).to.be.an('array')
-                expect(res.body.unreadFollingUser).to.be.an('array')
+                expect(res.body.unreadFollowingUser).to.be.an('array')
                 expect(res.body.unreadCommentsForUser).to.be.an('array')
             })
         })
@@ -71,14 +72,13 @@ describe('Activity Endpoints', function () {
             it(`responds with 200 and an object with three keys, followedByUser, unreadFollowingUser, and unreadCommentsForUser with arrays for values`, async () => {
                 let res = await supertest(app)
                     .get(`/api/activity`)
+                    .set('Authorization', helpers.makeAuthHeader(testUser))
                 expect(res.status).to.equal(200);
                 expect(res.body).to.be.an('object')
-                expect(res.body).to.include.all.keys('followedByUser', 'unreadFollingUser', 'unreadCommentsForUser')
+                expect(res.body).to.include.all.keys('followedByUser', 'unreadFollowingUser', 'unreadCommentsForUser')
                 expect(res.body.followedByUser).to.be.an('array')
-                expect(res.body.unreadFollingUser).to.be.an('array')
+                expect(res.body.unreadFollowingUser).to.be.an('array')
                 expect(res.body.unreadCommentsForUser).to.be.an('array')
-                expect(res.body.followedByUser[0]).to.be.an('object')
-                expect(res.body.followedByUser[0]).to.include.all.keys('id', 'username', 'fullname')
             })
         })
 

@@ -37,6 +37,19 @@ avatarRouter
     .get(requireAuth, downloadAvatar);
 
 async function uploadAvatar(req, res, next) {
+    console.log('req.file: ', req.file, 'req.body: ', req.body)
+    if(!req.file) {
+        return res
+            .status(400)
+            .send('Missing request file.')
+    }
+
+    if(!req.body) {
+        return res
+            .status(400)
+            .send('Missing request body.')
+    }
+
     try {
 
         const imgData = fs.readFileSync(req.file.path);

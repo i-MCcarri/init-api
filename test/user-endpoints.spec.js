@@ -34,7 +34,7 @@ describe('Users Endpoints', function() {
                 )
             )
             
-            const requiredFields = ['fullname', 'username', 'user_password', 'email', 'about_user', 'user_stack']
+            const requiredFields = ['fullname', 'username', 'user_password', 'email']
 
             requiredFields.forEach(field => {
                 const registerAttemptBody = {
@@ -42,8 +42,6 @@ describe('Users Endpoints', function() {
                     username: 'test username',
                     user_password: 'test password',
                     email: 'email@email.com',
-                    about_user: 'test about',
-                    user_stack: 'Full Stack'
                 }
 
                 it(`responds with 400 required error when '${field}' is missing`, () => {
@@ -214,8 +212,6 @@ describe('Users Endpoints', function() {
                             expect(res.body.fullname).to.eql(newUser.fullname)
                             expect(res.body.username).to.eql(newUser.username)
                             expect(res.body.email).to.eql(newUser.email)
-                            expect(res.body.about_user).to.eql(newUser.about_user)
-                            expect(res.body.user_stack).to.eql(newUser.user_stack)
                             expect(res.body).to.not.have.property('user_password')
                             expect(res.headers.location).to.eql(`/api/user/${res.body.id}`)
                             const expectedDate = new Date().toLocaleString('en', { timeZone: 'UTC' })

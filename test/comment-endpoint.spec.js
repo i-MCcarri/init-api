@@ -51,23 +51,9 @@ describe('Comment endpoints', function () {
             let res = await supertest(app)
                 .get(`/api/comment/1`)
                 .set('Authorization', helpers.makeAuthHeader(testUser))
-
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('array')
-            console.log('RES BODY', res.body)
-            expect(res.body[0]).to.be.an('object')
-            // expect(res.body[0]).to.include.all.keys('text', 'user_id', 'post_id')
-
         })
     })
 
-    describe('POST /api/comment/:post_id', function () {
-
-    })
-
-
 })
-
-//teaching 12 to 14 year old talk about is the problem
-//tools to solve problems
-

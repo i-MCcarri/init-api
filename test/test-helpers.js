@@ -173,52 +173,22 @@ function seedPosts(db, arr) {
 }
 
 function seedComments(db, arr) {
-    console.log()
     return db
-        .insert(arr)
         .into('init_comments')
+        .insert(arr)
+        
 }
-
-
-// function seedInitTables(db, users, workouts, exercises, exercise_sets) {
-//     // use a transaction to group the queries and auto rollback on any failure
-//     return db.transaction(async trx => {
-//         await seedUsers(trx, users)
-//         await trx.into('benchmark_workout').insert(workouts)
-//         // update the auto sequence to match the forced id values
-//         await trx.raw(
-//             `SELECT setval('benchmark_workout_id_seq', ?)`,
-//             [workouts[workouts.length - 1].id],
-//         )
-//         //only insert exercises if there are some, also update the sequence counter
-//         if (exercises) {
-//             await trx.into('benchmark_exercise').insert(exercises)
-//             await trx.raw(
-//                 `SELECT setval('benchmark_exercise_id_seq', ?)`,
-//                 [exercises[exercises.length -1].id],
-//             )
-//         }
-//         //only insert sets if there are some, also update the sequence counter
-//         if (exercise_sets) {
-//             await trx.into('benchmark_set').insert(exercise_sets)
-//             await trx.raw(
-//                 `SELECT setval('benchmark_set_id_seq', ?)`,
-//                 [exercise_sets[exercise_sets.length -1].id],
-//             )
-//         }
-//     })
-// }
 
 function cleanTables(db) {
     return db.transaction(trx =>
         trx.raw(
             `TRUNCATE
-                user_information,
-                user_avatar,
-                init_posts,
-                init_following,
-                init_comments
-            `
+                "init_comments",
+                "init_following",
+                "init_posts",
+                "user_avatar",
+                "user_information"
+                `
         )
             .then(() =>
                 Promise.all([

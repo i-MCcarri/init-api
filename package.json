@@ -4,7 +4,7 @@
   "description": "Welcome to init. Social media designed specifically for those of us who spend our days “init.” Inspired by Instagram, init allows you to find and follow developers as they share photos and code snippets of their projects. Lets get init.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require test/setup.js",
+    "test": "mocha --require test/setup.js --timeout 15000",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "migrate": "postgrator --config postgrator-config.js",

@@ -33,16 +33,6 @@ describe('Post endpoints', function () {
             )
         )
 
-        //gets post with same id as url
-        //checks if post is object
-        //with keys title, user_id, etc.
-
-        //if there is no post with that id, should return 404
-
-
-
-
-
     })
 
 
