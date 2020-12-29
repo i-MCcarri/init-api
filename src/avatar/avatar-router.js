@@ -37,7 +37,6 @@ avatarRouter
     .get(requireAuth, downloadAvatar);
 
 async function uploadAvatar(req, res, next) {
-    console.log('req.file: ', req.file, 'req.body: ', req.body)
     if(!req.file) {
         return res
             .status(400)
@@ -51,7 +50,6 @@ async function uploadAvatar(req, res, next) {
     }
 
     try {
-
         const imgData = fs.readFileSync(req.file.path);
 
         const uploadData = {
